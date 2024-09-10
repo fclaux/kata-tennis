@@ -1,6 +1,6 @@
 package katatennis;
 
-public class TennisGame implements ScoreInterface {
+public class TennisGame implements Scoreable {
 	
 	private static final String[] SCORE_NAMES = {"Love", "Fifteen", "Thirty", "Forty"};
 

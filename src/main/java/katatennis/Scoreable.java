@@ -1,6 +1,6 @@
 package katatennis;
 
-public interface ScoreInterface {
+public interface Scoreable {
 	void wonPoint(String playerName);
 
 	String getScore();
