@@ -6,8 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import katatennis.ScoreInterface;
 import katatennis.TennisGame;
-import katatennis.TennisGame1;
 
 import java.util.stream.Stream;
 
@@ -16,11 +16,11 @@ public class TennisTest {
 	@ParameterizedTest
 	@MethodSource("gameProvider")
 	void checkAllScoresTennisGame1(int player1Score, int player2Score, String expectedScore) {
-		TennisGame game = new TennisGame1("player1", "player2");
+		ScoreInterface game = new TennisGame("player1", "player2");
 		checkAllScores(game, player1Score, player2Score, expectedScore);
 	}
 
-	void checkAllScores(TennisGame game, int player1Score, int player2Score, String expectedScore) {
+	void checkAllScores(ScoreInterface game, int player1Score, int player2Score, String expectedScore) {
 		int highestScore = Math.max(player1Score, player2Score);
 		for (int i = 0; i < highestScore; i++) {
 			if (i < player1Score)
