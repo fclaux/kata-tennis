@@ -1,6 +1,8 @@
 package katatennis;
 
 public class TennisGame1 implements TennisGame {
+	
+	private static final String[] SCORE_NAMES = {"Love", "Fifteen", "Thirty", "Forty"};
 
 	private int player1Score = 0;
 	private int player2Score = 0;
@@ -15,63 +17,42 @@ public class TennisGame1 implements TennisGame {
 	public void wonPoint(String playerName) {
 		if (player1Name.equals(playerName))
 			player1Score += 1;
-		else
+		else if (player2Name.equals(playerName))
 			player2Score += 1;
 	}
 
 	public String getScore() {
 		String score = "";
-		int tempScore = 0;
 		if (player1Score == player2Score) {
-			switch (player1Score) {
-			case 0:
-				score = "Love-All";
-				break;
-			case 1:
-				score = "Fifteen-All";
-				break;
-			case 2:
-				score = "Thirty-All";
-				break;
-			default:
-				score = "Deuce";
-				break;
-
-			}
+			score = getEqualScore();
 		} else if (player1Score >= 4 || player2Score >= 4) {
-			int minusResult = player1Score - player2Score;
-			if (minusResult == 1)
-				score = "Advantage player1";
-			else if (minusResult == -1)
-				score = "Advantage player2";
-			else if (minusResult >= 2)
-				score = "Win for player1";
-			else
-				score = "Win for player2";
+			score = getAdvantageOrWinScore();
 		} else {
-			for (int i = 1; i < 3; i++) {
-				if (i == 1)
-					tempScore = player1Score;
-				else {
-					score += "-";
-					tempScore = player2Score;
-				}
-				switch (tempScore) {
-				case 0:
-					score += "Love";
-					break;
-				case 1:
-					score += "Fifteen";
-					break;
-				case 2:
-					score += "Thirty";
-					break;
-				case 3:
-					score += "Forty";
-					break;
-				}
-			}
+			score = getNormalScore();
 		}
 		return score;
+	}
+	
+	private String getEqualScore() {
+		if (player1Score >= 3) {
+			return "Deuce";
+		}
+		return SCORE_NAMES[player1Score] + "-All";
+	}
+	
+	private String getAdvantageOrWinScore() {
+		int minusResult = player1Score - player2Score;
+		if (minusResult == 1)
+			return "Advantage " + player1Name;
+		else if (minusResult == -1)
+			return "Advantage " + player2Name;
+		else if (minusResult >= 2)
+			return "Win for " + player1Name;
+		else
+			return "Win for " + player2Name;
+	}
+	
+	private String getNormalScore() {
+		 return SCORE_NAMES[player1Score] + "-" + SCORE_NAMES[player2Score];
 	}
 }
